@@ -6,14 +6,18 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 <script type="text/javascript">
 $(function() {
-  localStorage.setItem("message", "こんにちはlocalStorage");
-
   for (var i = 0; i < localStorage.length; i++) {
     var key  = localStorage.key(i);
     var item = localStorage.getItem(key);
     $('<tr><td>' + key + '</td><td>' + item + '</td></tr>').appendTo("#localStorage");
   };
 
+  $('#fm').submit(function(e) {
+    var key   = $('#key').val();
+    var value = $('#value').val();
+    localStorage.setItem(key, value);
+    alert("save in localStorage:(" + key + ", " + value + ")");
+  });
 });
 </script>
 </head>
@@ -25,5 +29,14 @@ $(function() {
     <th>value</th>
   </tr>
 </table>
+<hr>
+<p>新規登録</p>
+<form id="fm">
+  <label for="key">key</label>：
+  <input type="text" name="key" id="key"><br>
+  <label for="value">value</label>：
+  <input type="text" name="value" id="value"><br>
+  <input type="submit" value="送信">
+</form>
 </body>
 </html>
