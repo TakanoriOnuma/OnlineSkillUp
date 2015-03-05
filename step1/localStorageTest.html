@@ -6,32 +6,49 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 <script type="text/javascript">
 $(function() {
-  for (var i = 0; i < localStorage.length; i++) {
-    var key  = localStorage.key(i);
-    var item = localStorage.getItem(key);
-    $('<tr><td>' + key + '</td><td>' + item + '</td></tr>').appendTo("#localStorage");
-  };
+  showLocalStorage();
 
-  $('#fm').submit(function(e) {
+  $('#regForm').submit(function(e) {
     var key   = $('#key').val();
     var value = $('#value').val();
     localStorage.setItem(key, value);
     alert("save in localStorage:(" + key + ", " + value + ")");
   });
+
+  $('#delForm').submit(function(e) {
+    if(!window.confirm("チェック項目を削除してもよろしいですか？")) {
+      return false;
+    };
+    $('#delForm input:checked').each(function() {
+      var key = localStorage.key($(this).attr('name'));
+      localStorage.removeItem(key);
+    });
+  });
 });
+
+function showLocalStorage() {
+  var storage = $('#localStorage');
+  storage.children().remove();
+  storage
+    .append("<caption>ローカルストレージ</caption>")
+    .append("<tr><th>delete</th><th>key</th><th>value</th></tr>");
+  for (var i = 0; i < localStorage.length; i++) {
+    var key  = localStorage.key(i);
+    var item = localStorage.getItem(key);
+    storage.append('<tr><td><input type="checkbox" name="' + i + '"></td><td>' + key + '</td><td>' + item + '</td></tr>');
+  };  
+};
+
 </script>
 </head>
 <body>
-<table id="localStorage" border="1">
-  <caption>ローカルストレージ</caption>
-  <tr>
-    <th>key</th>
-    <th>value</th>
-  </tr>
-</table>
+<form id="delForm">
+  <table id="localStorage" border="1"></table>
+  <input type="submit" name="削除する">
+</form>
 <hr>
 <p>新規登録</p>
-<form id="fm">
+<form id="regForm">
   <label for="key">key</label>：
   <input type="text" name="key" id="key"><br>
   <label for="value">value</label>：
