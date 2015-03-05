@@ -20,8 +20,7 @@ $(function() {
       return false;
     };
     $('#delForm input:checked').each(function() {
-      var key = localStorage.key($(this).attr('name'));
-      localStorage.removeItem(key);
+      localStorage.removeItem($(this).attr('key'));
     });
   });
 });
@@ -35,7 +34,7 @@ function showLocalStorage() {
   for (var i = 0; i < localStorage.length; i++) {
     var key  = localStorage.key(i);
     var item = localStorage.getItem(key);
-    storage.append('<tr><td><input type="checkbox" name="' + i + '"></td><td>' + key + '</td><td>' + item + '</td></tr>');
+    storage.append('<tr><td><input type="checkbox" key="' + key + '"></td><td>' + key + '</td><td>' + item + '</td></tr>');
   };  
 };
 
