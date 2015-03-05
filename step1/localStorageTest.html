@@ -9,10 +9,12 @@ $(function() {
   showLocalStorage();
 
   $('#regForm').submit(function(e) {
+    if(!window.confirm("ローカルストレージに保存してもよろしいですか？")) {
+      return false;
+    }
     var key   = $('#key').val();
     var value = $('#value').val();
     localStorage.setItem(key, value);
-    alert("save in localStorage:(" + key + ", " + value + ")");
   });
 
   $('#delForm').submit(function(e) {
