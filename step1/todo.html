@@ -41,10 +41,15 @@ function showTodoList() {
   $("#todoList input").mousedown(function() {
     var message = "";
     if($(this).attr("checked") === undefined) {
-      message = "このTODOを完了してもよろしいですか？\n";
+      message = "このTODOを完了してもよろしいですか？\n\n";
     }
     else {
-      message = "このTODOの完了を取り消してもよろしいですか？\n";
+      message = "このTODOの完了を取り消してもよろしいですか？\n\n";
+    }
+    var tdObj = $(this).parent().next();
+    for(var i = 1; i < colums.length; i++) {
+      message += colums[i] + ":" + tdObj.text() + "\n";
+      tdObj = tdObj.next();
     }
     if(window.confirm(message)) {
       toggleCheck($(this));
