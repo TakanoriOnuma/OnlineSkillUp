@@ -6,6 +6,24 @@ $(function() {
     if(!window.confirm("登録してもよろしいですか？")) {
       return false;
     }
+    var check = function() {
+      var title = $("#title");
+      if(title.val().length <= 0 || title.val().length > title.attr("maxlength")) {
+        alert("タイトルの文字数は1～" + title.attr("maxlength") + "までにしてください。");
+        return false;
+      }
+      var detail = $("#detail");
+      var detailMaxLength = detail.attr("cols") * detail.attr("rows");
+      if(detail.val().length > detailMaxLength) {
+        alert("詳細は" + detailMaxLength + "字までにしてください。");
+        return false;
+      }
+      return true;
+    };
+    if(!check()) {
+      return false;
+    }
+
     var now = new Date();
     var key = "todo" + now.getTime();
     var deadline = $("#deadline").children();
@@ -15,6 +33,7 @@ $(function() {
     ];
     deadDay = deadDay.filter(function(element) { return (element !== ""); });
     deadDay = (deadDay.length !== 3) ? "" : new Date(deadDay[0], deadDay[1] - 1, deadDay[2]);
+
     var saveItems = {"isCheck" : false,
       "created" : now,
       "deadline" : deadDay,
