@@ -93,6 +93,10 @@ function showTodoList() {
     }
   }
 
+  $("#todoList input:checked").each(function() {
+    $(this).parent().parent().parent().css('background-color', 'lightgray');
+  });
+
   $("#todoList dd").hide();
   $("#todoList dt").click(function() {
     if($('img', this).attr("src") === "plus.png") {
