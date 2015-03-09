@@ -13,16 +13,14 @@ $(function() {
       deadline.next().val(),          // month
       deadline.next().next().val()    // day
     ];
-    console.log(deadDay);
     deadDay = deadDay.filter(function(element) { return (element !== ""); });
-    console.log(deadDay);
     deadDay = (deadDay.length !== 3) ? "" : new Date(deadDay[0], deadDay[1] - 1, deadDay[2]);
-    alert(deadDay);
     var saveItems = {"isCheck" : false,
       "created" : now,
       "deadline" : deadDay,
       "title" : $("#title").val(),
-      "detail" : $("#detail").val()};
+      "detail" : $("#detail").val()
+    };
     var value = JSON.stringify(saveItems);
 
     localStorage.setItem(key, value);
