@@ -1,0 +1,23 @@
+body {
+  width: 80%;
+  margin-left: 10%;
+  line-height: 1.5em;
+}
+
+h1 {
+  text-align: center;
+}
+
+#regForm {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#todoList table {
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
