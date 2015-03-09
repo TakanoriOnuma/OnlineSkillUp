@@ -78,7 +78,7 @@ function showTodoList() {
     return contents;
   };
 
-  for(var i = 0; i < localStorage.length; i++) {
+  for(var i = localStorage.length - 1; i >= 0; i--) {
     var key = localStorage.key(i);
     if(key.match(/^todo/)) {
       var table = '<table border="1">';
