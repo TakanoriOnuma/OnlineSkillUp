@@ -13,21 +13,26 @@ $(function() {
     }
     var now = new Date();
     var key   = "todo" + now.getTime();
-    var value = $("#value").val();
+    var saveItems = [now, $("#title").val(), $("#detail").val()];
+    var value = JSON.stringify(saveItems);
     localStorage.setItem(key, value);
   });
 });
 
 function showTodoList() {
   var todoList = $("#todoList");
+  var colums = ["登録日", "タイトル", "詳細"];
   todoList
     .append("<caption>TODOリスト</caption>")
-    .append("<tr><th>todo</th></tr>");
+    .append("<tr><th>" + colums.join("</th><th>") + "</th></tr>");
   for(var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     if(key.match(/^todo/)) {
-      var value = localStorage.getItem(key);
-      todoList.append("<tr><td>" + value + "</td></tr>");
+      var value  = localStorage.getItem(key);
+      var items  = JSON.parse(value);
+      var regDay = new Date(items[0]);
+      items[0] = [regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/");
+      todoList.append("<tr><td>" + items.join("</td><td>") + "</td></tr>");
     }
   }
 }
@@ -39,8 +44,10 @@ function showTodoList() {
 <hr>
 <p>新規登録</p>
 <form id="regForm">
-  <label for="value">todo</label>：
-  <input type="text" name="value" id="value"><br>
+  <label for="title">title</label>：
+  <input type="text" name="title" id="title"><br>
+  <label for="detail">detail</label>：<br>
+  <textarea name="detail" id="detail" cols="30" rows="10"></textarea><br>
   <input type="submit" value="送信">
 </form>
 
