@@ -12,8 +12,8 @@ $(function() {
       return false;
     }
     var now = new Date();
-    var key   = "todo" + now.getTime();
-    var saveItems = [now, $("#title").val(), $("#detail").val()];
+    var key = "todo" + now.getTime();
+    var saveItems = [false, now, $("#title").val(), $("#detail").val()];
     var value = JSON.stringify(saveItems);
     localStorage.setItem(key, value);
   });
@@ -21,7 +21,8 @@ $(function() {
 
 function showTodoList() {
   var todoList = $("#todoList");
-  var colums = ["登録日", "タイトル", "詳細"];
+  var colums = ["完了", "登録日", "タイトル", "詳細"];
+  todoList.children().remove();
   todoList
     .append("<caption>TODOリスト</caption>")
     .append("<tr><th>" + colums.join("</th><th>") + "</th></tr>");
@@ -30,11 +31,34 @@ function showTodoList() {
     if(key.match(/^todo/)) {
       var value  = localStorage.getItem(key);
       var items  = JSON.parse(value);
-      var regDay = new Date(items[0]);
-      items[0] = [regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/");
+      items[0] = '<input type="checkbox" key=' + key + ((items[0] === true) ? ' checked' : ' ') + '>';
+      var regDay = new Date(items[1]);
+      items[1] = [regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/");
       todoList.append("<tr><td>" + items.join("</td><td>") + "</td></tr>");
     }
   }
+
+  $("#todoList input").mousedown(function() {
+    var message = "";
+    if($(this).attr("checked") === undefined) {
+      message = "このTODOを完了してもよろしいですか？\n";
+    }
+    else {
+      message = "このTODOの完了を取り消してもよろしいですか？\n";
+    }
+    if(window.confirm(message)) {
+      toggleCheck($(this));
+      showTodoList();
+    }
+  });
+}
+
+function toggleCheck(chObj) {
+  var key   = chObj.attr("key");
+  var value = localStorage.getItem(key);
+  var items = JSON.parse(value);
+  items[0]  = !items[0];
+  localStorage.setItem(key, JSON.stringify(items));
 }
 </script>
 <title>TODO List</title>
