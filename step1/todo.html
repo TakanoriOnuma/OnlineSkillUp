@@ -5,6 +5,8 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
 <script type="text/javascript">
 $(function() {
+  showTodoList();
+
   $("#regForm").submit(function() {
     if(!window.confirm("登録してもよろしいですか？")) {
       return false;
@@ -15,10 +17,26 @@ $(function() {
     localStorage.setItem(key, value);
   });
 });
+
+function showTodoList() {
+  var todoList = $("#todoList");
+  todoList
+    .append("<caption>TODOリスト</caption>")
+    .append("<tr><th>todo</th></tr>");
+  for(var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+    if(key.match(/^todo/)) {
+      var value = localStorage.getItem(key);
+      todoList.append("<tr><td>" + value + "</td></tr>");
+    }
+  }
+}
 </script>
 <title>TODO List</title>
 </head>
 <body>
+<table id="todoList" border="1"></table>
+<hr>
 <p>新規登録</p>
 <form id="regForm">
   <label for="value">todo</label>：
