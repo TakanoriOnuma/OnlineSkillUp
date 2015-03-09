@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script type="text/javascript" src="todo.js"></script>
+<title>TODO List</title>
+</head>
+<body>
+<h1>新規登録</h1>
+<form id="regForm">
+  <label for="title">タイトル</label>：
+  <input type="text" name="title" id="title" maxlength="20"><br>
+  <label for="detail">詳細</label>：<br>
+  <textarea name="detail" id="detail" cols="30" rows="10"></textarea><br>
+  <label>締切：</label><div id="deadline"></div><br>
+  <input type="submit" value="新規登録">
+</form>
+<hr>
+<h1>TODOリスト</h1>
+<div id="todoList"></div>
+</body>
+</html>
