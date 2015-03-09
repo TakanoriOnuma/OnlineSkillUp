@@ -13,6 +13,10 @@ $(function() {
   });
 });
 
+function escapeText(text) {
+  return $("<div>").text(text).html();
+}
+
 function showTodoList() {
   var todoList = $("#todoList");
   var colums = ["完了", "登録日", "タイトル"];
@@ -21,11 +25,11 @@ function showTodoList() {
     var contents = ['<input type="checkbox" key=' + key + ((items[0] === true) ? ' checked' : ' ') + '>'];
     var regDay = new Date(items[1]);
     contents.push([regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/"));
-    contents.push(items[2]);
+    contents.push(escapeText(items[2]));
     return contents;
   };
   makeSubContents = function(key, items) {
-    var contents = [items[items.length - 1]];
+    var contents = [escapeText(items[items.length - 1])];
     return contents;
   };
   for(var i = 0; i < localStorage.length; i++) {
