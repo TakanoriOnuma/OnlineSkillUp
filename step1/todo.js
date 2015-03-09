@@ -1,5 +1,6 @@
 $(function() {
   showTodoList();
+  makeDeadlineForm();
 
   $("#regForm").submit(function() {
     if(!window.confirm("登録してもよろしいですか？")) {
@@ -7,14 +8,48 @@ $(function() {
     }
     var now = new Date();
     var key = "todo" + now.getTime();
+    var deadline = $("#deadline").children();
+    var deadDay = [ deadline.val(),   // year
+      deadline.next().val(),          // month
+      deadline.next().next().val()    // day
+    ];
+    console.log(deadDay);
+    deadDay = deadDay.filter(function(element) { return (element !== ""); });
+    console.log(deadDay);
+    deadDay = (deadDay.length !== 3) ? "" : new Date(deadDay[0], deadDay[1] - 1, deadDay[2]);
+    alert(deadDay);
     var saveItems = {"isCheck" : false,
       "created" : now,
+      "deadline" : deadDay,
       "title" : $("#title").val(),
       "detail" : $("#detail").val()};
     var value = JSON.stringify(saveItems);
+
     localStorage.setItem(key, value);
   });
 });
+
+function makeDeadlineForm() {
+  var deadline = $("#deadline");
+  var now = new Date();
+  deadline.children().remove();
+  var selYear = makeSelection(now.getFullYear(), now.getFullYear() + 100, "year");
+  deadline.append(selYear + "年");
+  var selMonth = makeSelection(1, 12, "month");
+  deadline.append(selMonth + "月");
+  var selDay = makeSelection(1, 31, "day");
+  deadline.append(selDay + "日");
+}
+
+function makeSelection(min, max, name) {
+  var sel = '<select name="' + name + '">';
+  sel += '<option value="">--</option>';
+  for(var i = min; i <= max; i++) {
+    sel += '<option value="' + i + '">' + i + '</option>';
+  }
+  sel += '</select>';
+  return sel;
+}
 
 function escapeText(text) {
   return $("<div>").text(text).html();
@@ -22,13 +57,20 @@ function escapeText(text) {
 
 function showTodoList() {
   var todoList = $("#todoList");
-  var colums = ["完了", "登録日", "タイトル"];
+  var colums = ["完了", "タイトル", "締切", "登録日"];
   todoList.children().remove();
   makeMainContents = function(key, items) {
     var contents = ['<input type="checkbox" key=' + key + ((items["isCheck"] === true) ? ' checked' : ' ') + '>'];
-    var regDay = new Date(items["created"]);
-    contents.push([regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/"));
     contents.push(escapeText(items["title"]));
+    if(items["deadline"] === '') {
+      contents.push("指定なし")
+    }
+    else {
+      var day = new Date(items["deadline"]);
+      contents.push([day.getFullYear(), day.getMonth() + 1, day.getDate()].join("/"));
+    };
+    var day = new Date(items["created"]);
+    contents.push([day.getFullYear(), day.getMonth() + 1, day.getDate()].join("/"));
     return contents;
   };
   makeSubContents = function(key, items) {
