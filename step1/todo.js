@@ -86,12 +86,23 @@ function showTodoList() {
       var mainContents = makeMainContents(key, items);
       var subContents  = makeSubContents(key, items);
       table += "<tr><td>" + mainContents.join("</td><td>") + "</td></tr>";
-      table += '<tr><td colspan="' + colums.length + '"><dl><dt>詳細</dt><dd>' + subContents[0] + '</dd></dl></td></tr>';
+      table += '<tr><td colspan="' + colums.length + '"><dl><dt><img src="plus.png" />詳細</dt><dd>' + subContents[0] + '</dd></dl></td></tr>';
       table += '</table>';
       todoList.append(table);
       todoList.append("<br>");
     }
   }
+
+  $("#todoList dd").hide();
+  $("#todoList dt").click(function() {
+    if($('img', this).attr("src") === "plus.png") {
+      $('img', this).attr("src", "minus.png");
+    }
+    else {
+      $('img', this).attr("src", "plus.png");
+    }
+    $('+dd', this).slideToggle(500);
+  });
 
   $("#todoList input").mousedown(function() {
     var message = "";

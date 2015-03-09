@@ -21,3 +21,19 @@ h1 {
   margin-right: auto;
   text-align: center;
 }
+
+#todoList dt {
+  margin: 0;
+  background-color: rgb(0, 0, 128);
+  color: white;
+}
+
+#todoList dd {
+  margin: 0;
+  padding: 4px;
+  border: solid;
+}
+
+#todoList img {
+  margin-top: 4px;
+}
