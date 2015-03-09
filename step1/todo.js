@@ -7,7 +7,10 @@ $(function() {
     }
     var now = new Date();
     var key = "todo" + now.getTime();
-    var saveItems = [false, now, $("#title").val(), $("#detail").val()];
+    var saveItems = {"isCheck" : false,
+      "created" : now,
+      "title" : $("#title").val(),
+      "detail" : $("#detail").val()};
     var value = JSON.stringify(saveItems);
     localStorage.setItem(key, value);
   });
@@ -22,16 +25,17 @@ function showTodoList() {
   var colums = ["完了", "登録日", "タイトル"];
   todoList.children().remove();
   makeMainContents = function(key, items) {
-    var contents = ['<input type="checkbox" key=' + key + ((items[0] === true) ? ' checked' : ' ') + '>'];
-    var regDay = new Date(items[1]);
+    var contents = ['<input type="checkbox" key=' + key + ((items["isCheck"] === true) ? ' checked' : ' ') + '>'];
+    var regDay = new Date(items["created"]);
     contents.push([regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/"));
-    contents.push(escapeText(items[2]));
+    contents.push(escapeText(items["title"]));
     return contents;
   };
   makeSubContents = function(key, items) {
-    var contents = [escapeText(items[items.length - 1])];
+    var contents = [escapeText(items["detail"])];
     return contents;
   };
+
   for(var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     if(key.match(/^todo/)) {
@@ -42,7 +46,7 @@ function showTodoList() {
       var mainContents = makeMainContents(key, items);
       var subContents  = makeSubContents(key, items);
       table += "<tr><td>" + mainContents.join("</td><td>") + "</td></tr>";
-      table += '<tr><td colspan="3"><dl><dt>詳細</dt><dd>' + subContents[0] + '</dd></dl></td></tr>';
+      table += '<tr><td colspan="' + colums.length + '"><dl><dt>詳細</dt><dd>' + subContents[0] + '</dd></dl></td></tr>';
       table += '</table>';
       todoList.append(table);
       todoList.append("<br>");
@@ -73,6 +77,6 @@ function toggleCheck(chObj) {
   var key   = chObj.attr("key");
   var value = localStorage.getItem(key);
   var items = JSON.parse(value);
-  items[0]  = !items[0];
+  items["isCheck"]  = !items["isCheck"];
   localStorage.setItem(key, JSON.stringify(items));
 }
