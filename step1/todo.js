@@ -15,20 +15,33 @@ $(function() {
 
 function showTodoList() {
   var todoList = $("#todoList");
-  var colums = ["完了", "登録日", "タイトル", "詳細"];
+  var colums = ["完了", "登録日", "タイトル"];
   todoList.children().remove();
-  todoList
-    .append("<caption>TODOリスト</caption>")
-    .append("<tr><th>" + colums.join("</th><th>") + "</th></tr>");
+  makeMainContents = function(key, items) {
+    var contents = ['<input type="checkbox" key=' + key + ((items[0] === true) ? ' checked' : ' ') + '>'];
+    var regDay = new Date(items[1]);
+    contents.push([regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/"));
+    contents.push(items[2]);
+    return contents;
+  };
+  makeSubContents = function(key, items) {
+    var contents = [items[items.length - 1]];
+    return contents;
+  };
   for(var i = 0; i < localStorage.length; i++) {
     var key = localStorage.key(i);
     if(key.match(/^todo/)) {
-      var value  = localStorage.getItem(key);
-      var items  = JSON.parse(value);
-      items[0] = '<input type="checkbox" key=' + key + ((items[0] === true) ? ' checked' : ' ') + '>';
-      var regDay = new Date(items[1]);
-      items[1] = [regDay.getFullYear(), regDay.getMonth() + 1, regDay.getDate()].join("/");
-      todoList.append("<tr><td>" + items.join("</td><td>") + "</td></tr>");
+      var table = '<table border="1">';
+      table += "<tr><th>" + colums.join("</th><th>") + "</th></tr>";
+      var value = localStorage.getItem(key);
+      var items = JSON.parse(value);
+      var mainContents = makeMainContents(key, items);
+      var subContents  = makeSubContents(key, items);
+      table += "<tr><td>" + mainContents.join("</td><td>") + "</td></tr>";
+      table += '<tr><td colspan="3"><dl><dt>詳細</dt><dd>' + subContents[0] + '</dd></dl></td></tr>';
+      table += '</table>';
+      todoList.append(table);
+      todoList.append("<br>");
     }
   }
 
