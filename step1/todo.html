@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.min.js"></script>
+<script type="text/javascript">
+$(function() {
+  $("#regForm").submit(function() {
+    if(!window.confirm("登録してもよろしいですか？")) {
+      return false;
+    }
+    var now = new Date();
+    var key   = "todo" + now.getTime();
+    var value = $("#value").val();
+    localStorage.setItem(key, value);
+  });
+});
+</script>
+<title>TODO List</title>
+</head>
+<body>
+<p>新規登録</p>
+<form id="regForm">
+  <label for="value">todo</label>：
+  <input type="text" name="value" id="value"><br>
+  <input type="submit" value="送信">
+</form>
+
+</body>
+</html>
