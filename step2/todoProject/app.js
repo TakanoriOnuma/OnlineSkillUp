@@ -1,3 +1,6 @@
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/todoList');
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -24,6 +27,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+// ToDoスキーマの定義
+var Schema = mongoose.Schema;
+var todoSchema = new Schema({
+  isCheck     : { type: Boolean, default: false },
+  ListName    : String,
+  text        : String,
+  createdDate : { type: Date, default: Date.now},
+  limitDate   : Date
+});
+mongoose.model('Todo', todoSchema);
+var todoListSchema = new Schema({
+  ListName : String
+});
+mongoose.model('TodoList', todoSchema);
+
+
+app.get('/todo', function(req, res) {
+  var TodoList = mongoose.model('TodoList');
+  TodoList.find({}, function(err, todoLists) {
+    res.send(todoLists);
+  });
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
