@@ -9,7 +9,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
+var users  = require('./routes/users');
+var detail = require('./routes/detail');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/detail', detail);
 
 // ToDoスキーマの定義
 var Schema = mongoose.Schema;
