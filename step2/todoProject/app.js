@@ -34,7 +34,7 @@ var todoSchema = new Schema({
   isCheck     : { type: Boolean, default: false },
   listName    : String,
   text        : String,
-  createdDate : { type: Date, default: Date.now},
+  createdDate : { type: Date, default: Date.now },
   limitDate   : Date
 });
 mongoose.model('Todo', todoSchema);
