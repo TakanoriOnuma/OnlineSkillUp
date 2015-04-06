@@ -24,7 +24,11 @@ function getList() {
       }
       else {
         $.each(todos, function(index, todo) {
-          $list.append('<p>' + todo.listName + '</p>');
+          var htmlTag = '<table border="1"><tr><td>' + todo.text + '</td>';
+          htmlTag += '<td rowspan="3">' + todo.isCheck + '</td></tr>';
+          htmlTag += '<tr><td>期限：' + todo.limitDate + '</td></tr>';
+          htmlTag += '<tr><td>作成日：' + todo.createdDate + '</td></tr></table>';
+          $list.append(htmlTag);
         });
         $list.fadeIn();
       }
