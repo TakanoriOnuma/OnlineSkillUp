@@ -20,7 +20,29 @@ function getList() {
       }
       else {
         $.each(todoLists, function(index, todoList) {
-          $list.prepend('<p><a href="detail?listName=' + todoList.listName + '">' + todoList.listName + '</p>');
+          var todoNum   = 0;
+          var todoNumOk = 0;
+          var limitDate;
+          $.get('/todoDetail', {listName: todoList.listName}, function(todos) {
+            console.log(todos.length);
+            $.each(todos, function(index, todo) {
+              console.log("ok");
+              todoNum += 1;
+              if(todo.isCheck === true) {
+                todoNumOk += 1;
+              }
+            });
+            var httpTag = '<p><a href="detail?listName=' + todoList.listName + '">' + todoList.listName + '</a><br>';
+            if(todoNum === 0) {
+              httpTag += 'ToDoはありません。';
+            }
+            else {
+              httpTag += todoNum + '個中' + todoNumOk + '個がチェック済み</p>';
+            }
+
+            $list.prepend(httpTag);
+          });
+
         });
         $list.fadeIn();
       }

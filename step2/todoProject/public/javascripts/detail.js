@@ -15,7 +15,7 @@ function getList() {
   var $list = $('.list');
   $list.fadeOut(function() {
     $list.children().remove();
-    $.get('/todoDetail', {listName : params['listName']}, function(todos) {
+    $.get('/todoDetail', {listName : decodeURI(params['listName'])}, function(todos) {
       if(todos.length === 0) {
         var $info = $('.info');
         $info.children().remove();
@@ -44,7 +44,7 @@ function postList() {
   $('#text').val('');
   $('#limit').val('');
 
-  $.post('/todoDetail', {listName: params['listName'], text: text, limit: limitDate}, function(res) {
+  $.post('/todoDetail', {listName: decodeURI(params['listName']), text: text, limit: limitDate}, function(res) {
     var $info = $('.info');
     $info.children().remove();
     if (res === true) {
