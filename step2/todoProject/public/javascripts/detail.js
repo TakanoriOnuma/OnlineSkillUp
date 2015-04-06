@@ -11,7 +11,7 @@ function getList() {
   var params = getParams();
   var $listName = $('#listName');
   $listName.children().remove();
-  $listName.append('<p>' + params['listName'] + '</p>');
+  $listName.append('<p>' + decodeURI(params['listName']) + '</p>');
   var $list = $('.list');
   $list.fadeOut(function() {
     $list.children().remove();

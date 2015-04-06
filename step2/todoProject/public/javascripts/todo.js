@@ -20,7 +20,7 @@ function getList() {
       }
       else {
         $.each(todoLists, function(index, todoList) {
-          $list.prepend('<p>' + todoList.listName + '</p>');
+          $list.prepend('<p><a href="detail?listName=' + todoList.listName + '">' + todoList.listName + '</p>');
         });
         $list.fadeIn();
       }
