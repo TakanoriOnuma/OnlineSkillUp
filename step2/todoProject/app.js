@@ -61,6 +61,7 @@ app.get('/todo', function(req, res) {
 });
 
 app.post('/todo', function(req, res) {
+  alert("post")
   var listName = req.body.listName;
   if(listName !== '') {
     var TodoList = mongoose.model('TodoList');
@@ -81,6 +82,25 @@ app.get('/todoDetail', function(req, res) {
   Todo.find({listName: listName}, function(err, todos) {
     res.send(todos);
   });
+});
+
+app.post('/todoDetail', function(req, res) {
+  var text  = req.body.text;
+  var limit = req.body.limit;
+  var listName = req.body.listName;
+  if(name !== '' && limit !== '') {
+    var Todo = mongoose.model('Todo');
+    var todo = new Todo();
+    todo.text = text;
+    todo.limitDate = limit;
+    todo.listName  = listName;
+    todo.save();
+
+    res.send(true);
+  }
+  else {
+    res.send(false);
+  }
 });
 
 // catch 404 and forward to error handler

@@ -3,6 +3,20 @@ extends layout
 block content
   #listName
   p 新しいToDoを作成する
+  form#fm
+    table
+      tr
+        td
+          label(for='text') ToDo名
+        td
+          input#text(type='text', name='text')
+        td(rowspan='2')
+          input(type='submit', value='ToDoの追加')
+      tr
+        td
+          label(for='limit') 期限
+        td
+          input#limit(type='date', name='limit')
   .info
   .list
 

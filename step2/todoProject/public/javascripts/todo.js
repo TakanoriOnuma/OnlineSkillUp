@@ -2,7 +2,8 @@ $(function() {
   getList();
 });
 
-$('#fm').submit(function() {
+$('#btn').click(function() {
+  alert("submit");
   postList();
   return false;
 });
@@ -36,6 +37,7 @@ function postList() {
     var $info = $('.info');
     $info.children().remove();
     if (res === true) {
+      alert("test");
       $info.append(makeInformation('notice', '新しいTodoリストが作成されました。'));
     }
     else {
