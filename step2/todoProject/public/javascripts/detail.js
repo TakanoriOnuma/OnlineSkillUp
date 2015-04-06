@@ -8,8 +8,9 @@ $('#fm').submit(function() {
 });
 
 function getList() {
-  var $listName = $('#listName');
   var params = getParams();
+  var $listName = $('#listName');
+  $listName.children().remove();
   $listName.append('<p>' + params['listName'] + '</p>');
   var $list = $('.list');
   $list.fadeOut(function() {

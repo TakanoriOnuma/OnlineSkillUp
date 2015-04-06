@@ -76,7 +76,7 @@ app.post('/todo', function(req, res) {
 });
 
 app.get('/todoDetail', function(req, res) {
-  var listName = req.body.listName;
+  var listName = req.query.listName;
   var Todo = mongoose.model('Todo');
   Todo.find({listName: listName}, function(err, todos) {
     res.send(todos);
@@ -87,7 +87,7 @@ app.post('/todoDetail', function(req, res) {
   var text  = req.body.text;
   var limit = req.body.limit;
   var listName = req.body.listName;
-  if(name !== '' && limit !== '') {
+  if(text !== '' && limit !== '') {
     var Todo = mongoose.model('Todo');
     var todo = new Todo();
     todo.text = text;
