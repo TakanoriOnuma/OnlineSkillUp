@@ -2,7 +2,7 @@ $(function() {
   getList();
 });
 
-$('#btn').click(function() {
+$('#fm').submit(function() {
   postList();
   return false;
 });
@@ -20,7 +20,7 @@ function getList() {
       }
       else {
         $.each(todoLists, function(index, todoList) {
-          $list.append('<p>' + todoList.listName + '</p>');
+          $list.prepend('<p>' + todoList.listName + '</p>');
         });
         $list.fadeIn();
       }

@@ -28,7 +28,7 @@ function getList() {
           htmlTag += '<td rowspan="3">' + todo.isCheck + '</td></tr>';
           htmlTag += '<tr><td>期限：' + todo.limitDate + '</td></tr>';
           htmlTag += '<tr><td>作成日：' + todo.createdDate + '</td></tr></table>';
-          $list.append(htmlTag);
+          $list.prepend(htmlTag);
         });
         $list.fadeIn();
       }
