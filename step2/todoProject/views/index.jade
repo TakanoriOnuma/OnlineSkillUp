@@ -2,12 +2,13 @@ extends layout
 
 block content
   p 新しいToDoリストを作成する
-  table
-    tr
-      td
-        input(type="textbox")
-      td
-        input(type="button" value="リストの作成")
+  form#fm
+    table
+      tr
+        td
+          input#text(type="textbox")
+        td
+          input(type="submit" value="リストの作成")
   .list
 
 block scripts

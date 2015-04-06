@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/todoList');
+mongoose.connect('mongodb://localhost/database');
 
 var express = require('express');
 var path = require('path');
@@ -32,16 +32,16 @@ app.use('/users', users);
 var Schema = mongoose.Schema;
 var todoSchema = new Schema({
   isCheck     : { type: Boolean, default: false },
-  ListName    : String,
+  listName    : String,
   text        : String,
   createdDate : { type: Date, default: Date.now},
   limitDate   : Date
 });
 mongoose.model('Todo', todoSchema);
 var todoListSchema = new Schema({
-  ListName : String
+  listName : String
 });
-mongoose.model('TodoList', todoSchema);
+mongoose.model('TodoList', todoListSchema);
 
 
 app.get('/todo', function(req, res) {
@@ -49,6 +49,21 @@ app.get('/todo', function(req, res) {
   TodoList.find({}, function(err, todoLists) {
     res.send(todoLists);
   });
+});
+
+app.post('/todo', function(req, res) {
+  var listName = req.body.listName;
+  if(listName !== '') {
+    var TodoList = mongoose.model('TodoList');
+    var todoList = new TodoList();
+    todoList.listName = listName;
+    todoList.save();
+
+    res.send(true);
+  }
+  else {
+    res.send(false);
+  }
 });
 
 
