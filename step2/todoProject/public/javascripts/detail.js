@@ -6,17 +6,23 @@ function showList() {
   var $listName = $('#listName');
   var params = getParams();
   $listName.append('<p>' + params['listName'] + '</p>');
-}
+  var $list = $('.list');
+  $list.fadeOut(function() {
+    $list.children().remove();
+    $.get('/todoDetail', {listName : params['listName']}, function(todos) {
+      if(todos.length === 0) {
+        var $info = $('.info');
+        $info.children().remove();
+        $info.append(makeInformation('err', 'Todoが作成されていません。'));
+        $info.fadeIn();
+      }
+      else {
+        $.each(todos, function(index, todo) {
+          $list.append('<p>' + todo.listName + '</p>');
+        });
+        $list.fadeIn();
+      }
+    });
+  });
 
-function getParams() {
-  var url    = location.href;
-  parameters = url.split("?");
-  params     = parameters[1].split("&");
-  var paramsArray = [];
-  for ( i = 0; i < params.length; i++ ) {
-    neet = params[i].split("=");
-    paramsArray.push(neet[0]);
-    paramsArray[neet[0]] = neet[1];
-  }
-  return paramsArray;
 }

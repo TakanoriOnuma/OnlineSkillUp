@@ -44,7 +44,3 @@ function postList() {
     getList();
   });
 }
-
-function makeInformation(type, msg) {
-  return '<p class="' + type + '">' + msg + '</p>';
-}

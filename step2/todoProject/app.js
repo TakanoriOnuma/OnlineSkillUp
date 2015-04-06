@@ -45,6 +45,13 @@ var todoListSchema = new Schema({
 });
 mongoose.model('TodoList', todoListSchema);
 
+app.get('/test', function(req, res) {
+  var listName = req.body.listName;
+  var Todo = mongoose.model('Todo');
+  Todo.find({listName: listName}, function(err, todos) {
+    res.send(todos);
+  });
+});
 
 app.get('/todo', function(req, res) {
   var TodoList = mongoose.model('TodoList');
@@ -68,6 +75,13 @@ app.post('/todo', function(req, res) {
   }
 });
 
+app.get('/todoDetail', function(req, res) {
+  var listName = req.body.listName;
+  var Todo = mongoose.model('Todo');
+  Todo.find({listName: listName}, function(err, todos) {
+    res.send(todos);
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
