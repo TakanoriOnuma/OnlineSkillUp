@@ -3,7 +3,6 @@ $(function() {
 });
 
 $('#btn').click(function() {
-  alert("submit");
   postList();
   return false;
 });
@@ -32,12 +31,10 @@ function getList() {
 function postList() {
   var listName = $('#text').val();
   $('#text').val('');
-
   $.post('todo', {listName: listName}, function(res) {
     var $info = $('.info');
     $info.children().remove();
     if (res === true) {
-      alert("test");
       $info.append(makeInformation('notice', '新しいTodoリストが作成されました。'));
     }
     else {

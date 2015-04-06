@@ -61,7 +61,6 @@ app.get('/todo', function(req, res) {
 });
 
 app.post('/todo', function(req, res) {
-  alert("post")
   var listName = req.body.listName;
   if(listName !== '') {
     var TodoList = mongoose.model('TodoList');

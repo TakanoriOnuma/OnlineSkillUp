@@ -3,13 +3,13 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    block stylesheet
-    script(src='http://code.jquery.com/jquery-2.0.0.min.js')
-    script(src='javascripts/mylib.js')
-    block scripts
+    block stylesheets
   body
     table(border="1" width="100%")
       tr
         td <a href="">TODOリスト</a>
         td <a href="search">検索</a>
     block content
+    script(src='http://code.jquery.com/jquery-2.0.0.min.js')
+    script(src='javascripts/mylib.js')
+    block scripts

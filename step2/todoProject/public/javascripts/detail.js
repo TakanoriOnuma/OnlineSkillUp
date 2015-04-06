@@ -1,4 +1,3 @@
-/*
 $(function() {
   getList();
 });
@@ -52,5 +51,3 @@ function postList() {
     getList();
   });
 }
-
-*/
