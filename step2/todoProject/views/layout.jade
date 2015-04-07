@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    block stylesheets
+  body
+    table.header(width="100%")
+      tr
+        td(width="50%") <a href="/">TODOリスト</a>
+        td <a href="search">検索</a>
+    block content
+    script(src='http://code.jquery.com/jquery-2.0.0.min.js')
+    script(src='javascripts/mylib.js')
+    block scripts

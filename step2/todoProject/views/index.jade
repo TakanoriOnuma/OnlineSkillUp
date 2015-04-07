@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p 新しいToDoリストを作成する
+  form#fm
+    table
+      tr
+        td
+          input#text(type="textbox")
+        td
+          input(type="submit" value="リストの作成")
+  .info
+  .list
+
+block scripts
+  script(src='javascripts/todo.js')
