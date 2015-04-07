@@ -22,12 +22,21 @@ function getList() {
         $.each(todoLists, function(index, todoList) {
           var todoNum   = 0;
           var todoNumOk = 0;
-          var limitDate;
+          var limitDate = null;
           $.get('/todoDetail', {listName: todoList.listName}, function(todos) {
+            // ToDoリスト名から取り出したデータ群を使って計算する
             $.each(todos, function(index, todo) {
               todoNum += 1;
               if(todo.isCheck === true) {
                 todoNumOk += 1;
+              }
+              else {
+                if(limitDate === null) {
+                  limitDate = todo.limitDate;
+                }
+                else if(limitDate > todo.limitDate) {
+                  limitDate = todo.limitDate;
+                }
               }
             });
             var httpTag = '<p><a href="detail?listName=' + todoList.listName + '">' + todoList.listName + '</a><br>';
@@ -35,7 +44,11 @@ function getList() {
               httpTag += 'ToDoはありません。';
             }
             else {
-              httpTag += todoNum + '個中' + todoNumOk + '個がチェック済み</p>';
+              httpTag += todoNum + '個中' + todoNumOk + '個がチェック済み<br>';
+              if(limitDate !== null) {
+                httpTag += '～ ' + limitDate;
+              }
+              httpTag += '</p>';
             }
 
             $list.prepend(httpTag);
