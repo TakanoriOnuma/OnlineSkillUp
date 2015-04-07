@@ -21,3 +21,27 @@ function getParams() {
   }
   return paramsArray;
 }
+
+function setWatermark($textbox, msg) {
+  $textbox
+    .addClass('watermark')
+    .val(msg)
+    .attr('msg', msg)
+    .focus(function() {
+      $(this).removeClass('watermark');
+      if($(this).val() === msg) {
+        $(this).val('');
+      }
+    })
+    .blur(function() {
+      if($(this).val() === '') {
+        $(this).val(msg);
+        $(this).addClass('watermark');
+      }
+    })
+    .submit(function() {
+      if($(this).val() === msg) {
+        $(this).val('');
+      }
+    });
+}

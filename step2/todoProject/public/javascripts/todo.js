@@ -1,11 +1,13 @@
 $(function() {
+  setWatermark($('#text'), 'リスト名を入力してください');
   getList();
+
+  $('#fm').submit(function() {
+    postList();
+    return false;
+  });
 });
 
-$('#fm').submit(function() {
-  postList();
-  return false;
-});
 
 function getList() {
   var $list = $('.list');
@@ -63,8 +65,7 @@ function getList() {
 }
 
 function postList() {
-  var listName = $('#text').val();
-  alert(listName.length);
+  var listName = ($('#text').val() === $('#text').attr('msg')) ? '' : $('#text').val();
   if(listName.length >= 30) {
     var $info =$('.info');
     $info.children().remove();

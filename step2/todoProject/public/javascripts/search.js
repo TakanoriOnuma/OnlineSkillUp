@@ -1,10 +1,15 @@
-$('#fm').submit(function() {
-  postList();
-  return false;
+$(function() {
+  setWatermark($('#text'), 'ToDoの一部を入力してください');
+
+  $('#fm').submit(function() {
+    postList();
+    return false;
+  });
 });
 
+
 function postList() {
-  var text = $('#text').val();
+  var text = ($('#text').val() === $('#text').attr('msg')) ? '' : $('#text').val();
 
   var $list = $('.list');
   var $info = $('.info');

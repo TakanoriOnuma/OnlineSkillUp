@@ -1,11 +1,13 @@
 $(function() {
+  setWatermark($('#text'), '新規ToDo名を入力してください');
   getList();
+
+  $('#fm').submit(function() {
+    postList();
+    return false;
+  });
 });
 
-$('#fm').submit(function() {
-  postList();
-  return false;
-});
 
 function getList() {
   var params = getParams();
@@ -48,7 +50,7 @@ function getList() {
 
 function postList() {
   var params    = getParams();
-  var text      = $('#text').val();
+  var text      = ($('#text').val() === $('#text').attr('msg')) ? '' : $('#text').val();
   var limitDate = new Date($('#limit').val());
 
   $('#text').val('');

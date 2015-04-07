@@ -24,6 +24,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.watermark {
+  color: #C0C0C0;
+}
+
 .err {
   color: red;
 }
