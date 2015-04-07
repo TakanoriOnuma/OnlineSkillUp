@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p ToDoの検索
+  form#fm
+    table
+      tr
+        td
+          input#text(type="textbox")
+        td
+          input(type="submit" value="検索")
+  .info
+  .list
+
+block scripts
+  script(src='javascripts/search.js')

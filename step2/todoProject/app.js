@@ -11,6 +11,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users  = require('./routes/users');
 var detail = require('./routes/detail');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/detail', detail);
+app.use('/search', search);
 
 // ToDoスキーマの定義
 var Schema = mongoose.Schema;
