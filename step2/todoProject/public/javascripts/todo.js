@@ -46,7 +46,7 @@ function getList() {
             else {
               httpTag += todoNum + '個中' + todoNumOk + '個がチェック済み<br>';
               if(limitDate !== null) {
-                httpTag += '～ ' + limitDate;
+                httpTag += '～ ' + makeDateString(new Date(limitDate));
               }
               httpTag += '</p>';
             }

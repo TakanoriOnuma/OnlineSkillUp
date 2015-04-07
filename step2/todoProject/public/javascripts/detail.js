@@ -27,8 +27,8 @@ function getList() {
           var checkText = (todo.isCheck === true) ? '完了' : '未完了';
           var htmlTag = '<table border="1"><tr><td>' + todo.text + '</td>';
           htmlTag += '<td rowspan="3"><input type="button" value="' + checkText + '" key="' + todo._id + '"></td></tr>';
-          htmlTag += '<tr><td>期限：' + todo.limitDate + '</td></tr>';
-          htmlTag += '<tr><td>作成日：' + todo.createdDate + '</td></tr></table>';
+          htmlTag += '<tr><td>期限：' + makeDateString(new Date(todo.limitDate)) + '</td></tr>';
+          htmlTag += '<tr><td>作成日：' + makeDateString(new Date(todo.createdDate)) + '</td></tr></table>';
           $list.prepend(htmlTag);
         });
         $list.fadeIn();
