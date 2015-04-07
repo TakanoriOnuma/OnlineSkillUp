@@ -20,8 +20,9 @@ function postList() {
         $info.append(makeInformation('notice', todos.length + '件見つかりました。'));
         $info.fadeIn();
         $.each(todos, function(index, todo) {
+          var listName = decodeURI(todo.listName);
           var htmlTag = '<table border="1"><tr><td class="todoTitle">' + todo.text + '</td><td>期限：' + todo.limitDate + '</td></tr>';
-          htmlTag += '<tr><td>リスト：' + decodeURI(todo.listName) + '</td><td>作成日：' + todo.createdDate + '</td></tr>';
+          htmlTag += '<tr><td>リスト：<a href="/detail?listName=' + listName + '">' + listName + '</a></td><td>作成日：' + todo.createdDate + '</td></tr>';
           $list.prepend(htmlTag);
         });
         $list.fadeIn();
