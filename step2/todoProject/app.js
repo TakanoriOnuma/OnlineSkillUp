@@ -120,6 +120,14 @@ app.post('/todoCheck', function(req, res) {
   }
 });
 
+app.get('/todoSearch', function(req, res) {
+  var word = new RegExp(req.query.word);
+  var Todo = mongoose.model('Todo');
+  Todo.find({'text': word}, function(err, todos) {
+    res.send(todos);
+  });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
