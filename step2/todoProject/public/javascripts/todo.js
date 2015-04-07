@@ -63,6 +63,13 @@ function getList() {
 
 function postList() {
   var listName = $('#text').val();
+  alert(listName.length);
+  if(listName.length >= 30) {
+    var $info =$('.info');
+    $info.children().remove();
+    $info.append(makeInformation('err', 'リストの名称は30文字以内にして下さい。'));
+    return;
+  }
   $('#text').val('');
   $.post('todo', {listName: listName}, function(res) {
     var $info = $('.info');
