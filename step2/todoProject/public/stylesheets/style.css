@@ -13,3 +13,14 @@ a {
 .err {
   color: red;
 }
+
+.item {
+  border-style: solid;
+  border-color: gray;
+  padding: 10px;
+}
+
+table.item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -21,7 +21,7 @@ function postList() {
         $info.fadeIn();
         $.each(todos, function(index, todo) {
           var listName = decodeURI(todo.listName);
-          var htmlTag = '<table border="1"><tr><td class="todoTitle">' + todo.text + '</td>';
+          var htmlTag = '<table class="item"><tr><td class="todoTitle">' + todo.text + '</td>';
           htmlTag += '<td>期限：' + makeDateString(new Date(todo.limitDate)) + '</td></tr>';
           htmlTag += '<tr><td>リスト：<a href="/detail?listName=' + listName + '">' + listName + '</a></td>';
           htmlTag += '<td>作成日：' + makeDateString(new Date(todo.createdDate)) + '</td></tr>';
