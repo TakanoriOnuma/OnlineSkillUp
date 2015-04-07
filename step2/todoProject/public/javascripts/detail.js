@@ -24,13 +24,23 @@ function getList() {
       }
       else {
         $.each(todos, function(index, todo) {
+          var checkText = (todo.isCheck === true) ? '完了' : '未完了';
           var htmlTag = '<table border="1"><tr><td>' + todo.text + '</td>';
-          htmlTag += '<td rowspan="3">' + todo.isCheck + '</td></tr>';
+          htmlTag += '<td rowspan="3"><input type="button" value="' + checkText + '" key="' + todo._id + '"></td></tr>';
           htmlTag += '<tr><td>期限：' + todo.limitDate + '</td></tr>';
           htmlTag += '<tr><td>作成日：' + todo.createdDate + '</td></tr></table>';
           $list.prepend(htmlTag);
         });
         $list.fadeIn();
+        $('.list input').click(function() {
+          var key = $(this).attr('key');
+          $.post('/todoCheck', {key: key}, function(res) {
+            var $info = $('.info');
+            $info.children().remove();
+            $info.append(makeInformation('notice', 'ToDoチェックの変更が完了しました。'));
+            getList();
+          });
+        });
       }
     });
   });

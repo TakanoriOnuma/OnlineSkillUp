@@ -102,6 +102,22 @@ app.post('/todoDetail', function(req, res) {
   }
 });
 
+app.post('/todoCheck', function(req, res) {
+  var _id = req.body.key;
+  if(_id !== '') {
+    var Todo = mongoose.model('Todo');
+    Todo.findOne({_id: _id}, function(err, todo) {
+      todo.isCheck = !todo.isCheck;
+      todo.save();
+    });
+
+    res.send(true);
+  }
+  else {
+    res.send(false);
+  }
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

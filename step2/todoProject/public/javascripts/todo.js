@@ -24,9 +24,7 @@ function getList() {
           var todoNumOk = 0;
           var limitDate;
           $.get('/todoDetail', {listName: todoList.listName}, function(todos) {
-            console.log(todos.length);
             $.each(todos, function(index, todo) {
-              console.log("ok");
               todoNum += 1;
               if(todo.isCheck === true) {
                 todoNumOk += 1;
