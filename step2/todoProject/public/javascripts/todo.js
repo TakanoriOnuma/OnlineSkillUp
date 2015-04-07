@@ -39,7 +39,8 @@ function getList() {
                 }
               }
             });
-            var httpTag = '<p class="item"><a href="detail?listName=' + todoList.listName + '">' + todoList.listName + '</a><br>';
+            var httpTag = '<p class="item"><a class="todoTitle" href="detail?listName=' + todoList.listName + '">';
+            httpTag += todoList.listName + '</a><br>';
             if(todoNum === 0) {
               httpTag += 'ToDoはありません。';
             }
